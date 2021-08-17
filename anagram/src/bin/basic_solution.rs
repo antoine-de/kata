@@ -66,14 +66,16 @@ fn generate_anagrams(initial_word: &str, words_list: Vec<String>) -> Vec<String>
 }
 
 fn main() {
-    let initial_word = "documenting";
+    let initial_word = "platevisiblo";
     let words = read_words(initial_word);
-    println!("words: {:?}", words);
-    println!("words: {}", words.len());
-    for _i in 0..10000 {
+    //println!("words: {:?}", words);
+    //println!("words: {}", words.len());
+    for i in 0..10000 {
         let anagrams = generate_anagrams(initial_word, words.clone());
 
-        println!("anagrams: {:?}", anagrams);
+        if i == 0 {
+            println!("anagrams: {:?}", anagrams);
+        }
     }
 }
 

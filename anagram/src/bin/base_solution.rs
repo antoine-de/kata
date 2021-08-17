@@ -50,10 +50,12 @@ fn main() {
     //println!("words: {:?}", words);
     println!("words: {}", words.len());
 
-    for _i in 0..1000 {
-        let _anagrams = generate_anagrams(initial_word, &words);
+    for i in 0..10000 {
+        let anagrams = generate_anagrams(initial_word, &words);
 
-        // println!("anagrams: {:?}", anagrams);
+        if i == 0 {
+            println!("anagrams: {:?}", anagrams);
+        }
     }
 }
 
