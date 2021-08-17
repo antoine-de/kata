@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 fn read_words() -> Vec<String> {
     let content = std::fs::read_to_string("./wordlist.txt").expect("unable to read word list file");
     content
@@ -36,12 +34,26 @@ fn generate_anagrams(initial_word: &str, words_list: &Vec<String>) -> Vec<String
         .filter_map(|w| get_word_value(&w, initial_word).map(|v| ((v, w))))
         .collect::<Vec<_>>();
 
+    let mut anagrams = Vec::new();
+    for (i1, (v1, w1)) in words_values.iter().enumerate() {
+        for (v2, w2) in words_values[i1+1..].iter() {
+            if initial_word_value == v1 + v2 {
+                anagrams.push(format!("{} {}", w1, w2));
+            }
+        }
+    }
+    anagrams
+    
+    /*
+    iterator version, with itertools:
+    use itertools::Itertools;
     words_values
         .iter()
         .combinations(2)
         .filter(|words| initial_word_value == words.iter().map(|(v, _w)| v).sum())
         .map(|words| words.iter().map(|(_v, w)| w).join(" "))
         .collect()
+        */
 }
 
 fn main() {
@@ -50,7 +62,7 @@ fn main() {
     //println!("words: {:?}", words);
     println!("words: {}", words.len());
 
-    for i in 0..10000 {
+    for i in 0..100000 {
         let anagrams = generate_anagrams(initial_word, &words);
 
         if i == 0 {
