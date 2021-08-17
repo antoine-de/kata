@@ -17,9 +17,8 @@ fn read_words(initial_word: &str) -> std::io::Result<Vec<String>> {
 #[derive(PartialEq, Eq, Debug)]
 struct CountedChars {
     chars: std::collections::BTreeMap<char, usize>,
-    nb_chars: usize
+    nb_chars: usize,
 }
-
 
 impl std::iter::FromIterator<char> for CountedChars {
     fn from_iter<T>(iter: T) -> CountedChars
@@ -48,10 +47,10 @@ fn is_anagram(word: &CountedChars, other_words: &[&String]) -> bool {
         .map(|s| s.chars())
         .flatten()
         .collect::<CountedChars>();
-    println!(
-        "{:?}  --- compared to {:?}",
-        other_words, &sorted_words_char
-    );
+    //println!(
+    //    "{:?}  --- compared to {:?}",
+    //    other_words, &sorted_words_char
+    //);
     sorted_words_char.eq(word)
 }
 
@@ -71,9 +70,12 @@ fn main() -> eyre::Result<()> {
     let words = read_words(initial_word)?;
     println!("words: {:?}", words);
     println!("words: {}", words.len());
-    let anagrams = generate_anagrams(initial_word, words);
+    for _i in 0..10000 {
 
-    println!("anagrams: {:?}", anagrams);
+        let anagrams = generate_anagrams(initial_word, words.clone());
+        
+        println!("anagrams: {:?}", anagrams);
+    }
     Ok(())
 }
 
@@ -84,10 +86,11 @@ fn small_dataset() {
         vec![
             "ab".to_string(),
             "bc".to_string(),
+            "ac".to_string(),
             "a".to_string(),
             "b".to_string(),
             "c".to_string(),
         ],
     );
-    assert_eq!(anagrams, vec!["ab c", "bc a"])
+    assert_eq!(anagrams, vec!["ab c", "bc a", "ac b"])
 }

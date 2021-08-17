@@ -8,4 +8,3 @@ edition = "2018"
 [dependencies]
 eyre = "0.6.5"
 itertools = "0.10.1"
-tokio = "1.10.0"
