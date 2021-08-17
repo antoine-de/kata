@@ -1,7 +1,8 @@
 import copy
 
-WORD='documenting'
-WORDLIST_PATH='../data/wordlist.txt'
+WORD = 'documenting'
+WORDLIST_PATH = '../data/test_wordlist.txt'
+WORDLIST_PATH = '../data/wordlist.txt'
 
 def decompose_word():
     letter_dict={}
@@ -42,8 +43,11 @@ def check_occurence(letter_dict, letter):
 
 def search_anagrams(letter_dict):
     index_word = 0
-    for word1 in wordlist:
-        for word2 in wordlist[index_word:]:
+    word_len = len(wordlist)
+    for i in range(word_len):
+        for j in range(i+1,word_len):
+            word1 = wordlist[i]
+            word2 = wordlist[j]
             if len(word1) + len(word2) == len(WORD):
                 concatenated_word = word1 + word2
                 print_anagram(letter_dict, concatenated_word)
