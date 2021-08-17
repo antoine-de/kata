@@ -1,8 +1,8 @@
 use itertools::Itertools;
 
-fn read_words(initial_word: &str) -> std::io::Result<Vec<String>> {
-    let content = std::fs::read_to_string("./wordlist.txt")?;
-    Ok(content
+fn read_words(initial_word: &str) -> Vec<String> {
+    let content = std::fs::read_to_string("./wordlist.txt").expect("unable to read word list file");
+    content
         .split('\n')
         .skip(1)
         .map(|s| s.split(' '))
@@ -11,7 +11,7 @@ fn read_words(initial_word: &str) -> std::io::Result<Vec<String>> {
         // we can already filter if the word contains a letter that is not in `initial_word`
         .filter(|s| s.chars().all(|c| initial_word.contains(c)))
         .map(|s| s.to_string())
-        .collect())
+        .collect()
 }
 
 #[derive(PartialEq, Eq, Debug)]
@@ -65,18 +65,16 @@ fn generate_anagrams(initial_word: &str, words_list: Vec<String>) -> Vec<String>
         .collect()
 }
 
-fn main() -> eyre::Result<()> {
+fn main() {
     let initial_word = "documenting";
-    let words = read_words(initial_word)?;
+    let words = read_words(initial_word);
     println!("words: {:?}", words);
     println!("words: {}", words.len());
     for _i in 0..10000 {
-
         let anagrams = generate_anagrams(initial_word, words.clone());
-        
+
         println!("anagrams: {:?}", anagrams);
     }
-    Ok(())
 }
 
 #[test]

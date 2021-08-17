@@ -1,15 +1,15 @@
 use itertools::Itertools;
 
-fn read_words() -> std::io::Result<Vec<String>> {
-    let content = std::fs::read_to_string("./wordlist.txt")?;
-    Ok(content
+fn read_words() -> Vec<String> {
+    let content = std::fs::read_to_string("./wordlist.txt").expect("unable to read word list file");
+    content
         .split('\n')
         .skip(1)
         .map(|s| s.split(' '))
         .flatten()
         .filter(|s| !s.is_empty())
         .map(|s| s.to_string())
-        .collect())
+        .collect()
 }
 
 fn get_char_value(c: char, base_word: &str) -> Option<usize> {
@@ -29,7 +29,7 @@ fn generate_anagrams(initial_word: &str, words_list: &Vec<String>) -> Vec<String
     let initial_word_value = get_word_value(initial_word, initial_word)
         .expect("by construction, all letter should be there");
 
-        //println!("init val = {}", initial_word_value);
+    //println!("init val = {}", initial_word_value);
 
     let words_values = words_list
         .into_iter()
@@ -44,18 +44,17 @@ fn generate_anagrams(initial_word: &str, words_list: &Vec<String>) -> Vec<String
         .collect()
 }
 
-fn main() -> eyre::Result<()> {
+fn main() {
     let initial_word = "platvisibleo";
-    let words = read_words()?;
+    let words = read_words();
     //println!("words: {:?}", words);
     println!("words: {}", words.len());
 
     for _i in 0..1000 {
         let _anagrams = generate_anagrams(initial_word, &words);
-        
-       // println!("anagrams: {:?}", anagrams);
+
+        // println!("anagrams: {:?}", anagrams);
     }
-    Ok(())
 }
 
 #[test]
