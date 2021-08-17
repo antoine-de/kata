@@ -14,7 +14,7 @@ fn get_char_value(c: char, base_word: &str) -> Option<usize> {
     base_word
         .char_indices()
         .find(|(_i, wc)| c == *wc)
-        .map(|(i, _wc)| i + 1) // we want the first element to have value 1, not 0, else it would not be taken into account in the base
+        .map(|(i, _wc)| i + 1) // we want the first element to have value 1, not 0, else it would not be taken into account in the basis
 }
 
 fn get_word_value(word: &str, base_word: &str) -> Option<usize> {

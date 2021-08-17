@@ -11,9 +11,10 @@ Here’s a word list you might want to use: https://gist.githubusercontent.com/c
 
 build a map with char -> nb occurence, and compare it to the main word
 
-## base solution
+## basis solution
 
-build a 
+build a basis
 
-base = nb chars in base word: 11
+basis = nb chars in base word: 11
+
 val = first position in base word (eg: 'd' = 1, 'o' = 2, 'c' = 3, ...)
