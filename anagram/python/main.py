@@ -43,11 +43,8 @@ def check_occurence(letter_dict, letter):
 
 def search_anagrams(letter_dict):
     index_word = 0
-    word_len = len(wordlist)
-    for i in range(word_len):
-        for j in range(i+1,word_len):
-            word1 = wordlist[i]
-            word2 = wordlist[j]
+    for word1 in wordlist:
+        for word2 in wordlist[index_word:]:
             if len(word1) + len(word2) == len(WORD):
                 concatenated_word = word1 + word2
                 print_anagram(letter_dict, concatenated_word)
