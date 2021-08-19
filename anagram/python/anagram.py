@@ -1,10 +1,13 @@
-import copy
+from collections import Counter
 
 
 class Anagram():
+
     def __init__(self, word, word_list_path):
         self.WORD = word
         self.WORDLIST_PATH = word_list_path
+        self.WORD_SORTED = sorted(self.WORD.lower())
+        self.WORD_COUNTER = Counter(self.WORD.lower())
 
     def find_anagrams(self):
         wordlist = self.load_wordlist()
@@ -29,7 +32,6 @@ class Anagram():
                 wordlist.extend(line.split())
         return wordlist
 
-        
     def check_words(self, letter_dict, concatenated_word):
         other_letter_dict = {}
         for letter in concatenated_word:
@@ -51,10 +53,13 @@ class Anagram():
         index_word = 0
         anagram_list = []
         for word1 in wordlist:
-            for word2 in wordlist[index_word:]:
+            for word2 in wordlist[index_word+1:]:
                 if len(word1) + len(word2) == len(self.WORD) and \
-                self.check_words(letter_dict, word1 + word2):
-                    print(word1 + ' & ' + word2+ ' is an anagram of ' + self.WORD)
+                    self.check_words(letter_dict, word1 + word2):
+                        # Counter(word1 + word2) == self.WORD_COUNTER:
+                        # sorted(word1 + word2) == self.WORD_SORTED:
+                    print(word1 + ' & ' + word2 +
+                          ' are an anagram of ' + self.WORD)
                     anagram_list.append(word1+word2)
             index_word += 1
         return anagram_list
