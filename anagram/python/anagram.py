@@ -24,12 +24,14 @@ class Anagram():
         f = open(self.WORDLIST_PATH, 'r')
         lines = f.readlines()[1:]
         for line in lines:
-            wordlist += line.split()
+            wordlist.extend(line.split())
         return wordlist
 
     def print_anagram(self, letter_dict, concatenated_word):
         if self.check_words(letter_dict, concatenated_word):
             print(concatenated_word + ' is an anagram of ' + self.WORD)
+            return True
+        return False
         
         
     def check_words(self, letter_dict, concatenated_word):
@@ -49,6 +51,7 @@ class Anagram():
 
     def search_anagrams(self, letter_dict, wordlist):
         index_word = 0
+        anagram_list = []
         for word1 in wordlist:
             for word2 in wordlist[index_word:]:
                 if len(word1) + len(word2) == len(self.WORD):
