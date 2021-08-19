@@ -54,7 +54,7 @@ class Anagram():
         anagram_list = []
         for word1 in wordlist:
             for word2 in wordlist[index_word+1:]:
-                if len(word1) + len(word2) == len(self.WORD) and \
+                if len(word1 + word2) == len(self.WORD) and \
                     self.check_words(letter_dict, word1 + word2):
                         # Counter(word1 + word2) == self.WORD_COUNTER:
                         # sorted(word1 + word2) == self.WORD_SORTED:
