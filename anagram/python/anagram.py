@@ -1,23 +1,22 @@
-from collections import Counter
-import logging
+# from collections import Counter
+# import logging
 from itertools import combinations
 
-FORMAT = '%(asctime)-15s %(message)s'
-logging.basicConfig(format=FORMAT)
-LOGGER = logging.getLogger()
-LOGGER.setLevel(logging.DEBUG)
+# FORMAT = '%(asctime)-15s %(message)s'
+# logging.basicConfig(format=FORMAT)
+# LOGGER = logging.getLogger()
+# LOGGER.setLevel(logging.DEBUG)
 class Anagram():
 
     def __init__(self, word, word_list_path):
         self.WORD = word
         self.WORDLIST_PATH = word_list_path
         self.WORD_SORTED = sorted(self.WORD.lower())
-        self.WORD_COUNTER = Counter(self.WORD.lower())
+        # self.WORD_COUNTER = Counter(self.WORD.lower())
 
     def find_anagrams(self):
         letter_dict = self.decompose_word()
         wordlist = self.load_wordlist(letter_dict)
-
         return self.search_anagrams(letter_dict, wordlist)
 
     def decompose_word(self):
@@ -30,7 +29,7 @@ class Anagram():
         return letter_dict
 
     def load_wordlist(self,letter_dict):
-        LOGGER.info('Loading word list.')
+        # LOGGER.info('Loading word list.')
         wordlist = []
         f = open(self.WORDLIST_PATH, 'r')
         lines = f.readlines()
@@ -63,14 +62,15 @@ class Anagram():
     #     return False
 
     def search_anagrams(self, letter_dict, wordlist):
-        LOGGER.info('Searching anagram.')
+        # LOGGER.info('Searching anagram.')
         anagram_list = []
         for word1, word2 in combinations(wordlist, 2):
             if len(word1 + word2) == len(self.WORD) and \
-                self.check_words(letter_dict, word1 + word2):
-                    # Counter(word1 + word2) == self.WORD_COUNTER:
-                    # sorted(word1 + word2) == self.WORD_SORTED:
-                print(word1 + ' & ' + word2 +
-                        ' are an anagram of ' + self.WORD)
+                sorted(word1 + word2) == self.WORD_SORTED:
+                # Counter(word1 + word2) == self.WORD_COUNTER:
+                # self.check_words(letter_dict, word1 + word2):
+                    
+                # print(word1 + ' & ' + word2 +
+                #         ' are an anagram of ' + self.WORD)
                 anagram_list.append(word1+word2)
         return anagram_list
