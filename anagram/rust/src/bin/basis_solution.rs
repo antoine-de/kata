@@ -1,6 +1,6 @@
 fn read_words() -> Vec<String> {
     let content =
-        std::fs::read_to_string("./wordlist2.txt").expect("unable to read word list file");
+        std::fs::read_to_string("../wordlist2.txt").expect("unable to read word list file");
     content.split('\n').map(|s| s.to_string()).collect()
 }
 //fn read_words() -> Vec<String> {
