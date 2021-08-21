@@ -1,16 +1,13 @@
 use itertools::Itertools;
 
 fn read_words(initial_word: &str) -> Vec<String> {
-    let content = std::fs::read_to_string("./wordlist.txt").expect("unable to read word list file");
+    let content =
+        std::fs::read_to_string("../wordlist2.txt").expect("unable to read word list file");
     content
         .split('\n')
-        .skip(1)
-        .map(|s| s.split(' '))
-        .flatten()
-        .filter(|s| !s.is_empty())
+        .map(|s| s.to_string())
         // we can already filter if the word contains a letter that is not in `initial_word`
         .filter(|s| s.chars().all(|c| initial_word.contains(c)))
-        .map(|s| s.to_string())
         .collect()
 }
 
@@ -47,10 +44,6 @@ fn is_anagram(word: &CountedChars, other_words: &[&String]) -> bool {
         .map(|s| s.chars())
         .flatten()
         .collect::<CountedChars>();
-    //println!(
-    //    "{:?}  --- compared to {:?}",
-    //    other_words, &sorted_words_char
-    //);
     sorted_words_char.eq(word)
 }
 
@@ -66,11 +59,11 @@ fn generate_anagrams(initial_word: &str, words_list: Vec<String>) -> Vec<String>
 }
 
 fn main() {
-    let initial_word = "platevisiblo";
+    let initial_word = "documenting";
     let words = read_words(initial_word);
     //println!("words: {:?}", words);
-    //println!("words: {}", words.len());
-    for i in 0..10000 {
+    println!("words: {}", words.len());
+    for i in 0..100 {
         let anagrams = generate_anagrams(initial_word, words.clone());
 
         if i == 0 {
