@@ -30,9 +30,7 @@ defmodule Yahtzee do
   def _matching_dices(:pair, [_ | rest]), do: _matching_dices(:pair, rest)
   def _matching_dices(:pair, []), do: []
 
-  def _matching_dices(:brelan, [x, x, x | _]), do: [x, x, x]
-  def _matching_dices(:brelan, [_ | rest]), do: _matching_dices(:brelan, rest)
-  def _matching_dices(:brelan, []), do: []
+  def _matching_dices(:brelan, dices), do: dices |> _n_of_a_kind(3)
 
   def _matching_dices(:square, [x, x, x, x | _]), do: [x, x, x, x]
   def _matching_dices(:square, [_ | rest]), do: _matching_dices(:square, rest)
@@ -43,7 +41,7 @@ defmodule Yahtzee do
 
   def _matching_dices(:chance, dices), do: dices
 
-  def _matching_dices(:ones, dices), do: Enum.filter(dices, fn d -> d == 1 end)
+  def _matching_dices(:ones, dices), do: Enum.filter(dices, &(&1 == 1))
   def _matching_dices(:twos, dices), do: Enum.filter(dices, fn d -> d == 2 end)
   def _matching_dices(:threes, dices), do: Enum.filter(dices, fn d -> d == 3 end)
   def _matching_dices(:fours, dices), do: Enum.filter(dices, fn d -> d == 4 end)
@@ -71,6 +69,14 @@ defmodule Yahtzee do
   def _matching_dices(:full, [x, x, y, y, y] = dices), do: dices
   def _matching_dices(:full, [x, x, x, y, y] = dices), do: dices
   def _matching_dices(:full, _), do: []
+
+  # generic way to do pair/brelan/square and yahtzee
+  def _n_of_a_kind(dices, n),
+    do:
+      dices
+      |> Enum.chunk_by(& &1)
+      |> Enum.filter(&(length(&1) == n))
+      |> List.first([])
 end
 
 {combinaison, dices} = Yahtzee.read_args(System.argv())
