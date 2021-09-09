@@ -13,12 +13,11 @@ defmodule Yahtzee do
       |> Enum.sort()
       |> Enum.reverse()
 
-  def read_args([combinaison | dices]) do
-    {
+  def read_args([combinaison | dices]),
+    do: {
       combinaison |> String.to_existing_atom(),
       dices |> sort_and_validate
     }
-  end
 
   def get_value(combinaison, dices),
     do:
@@ -31,6 +30,7 @@ defmodule Yahtzee do
   defp matching_dices(:pair, []), do: []
 
   defp matching_dices(:brelan, dices), do: dices |> n_of_a_kind(3)
+
   defp matching_dices(:square, dices), do: dices |> n_of_a_kind(4)
 
   defp matching_dices(:yahtzee, [x, x, x, x, x]), do: [x, x, x, x, x]
